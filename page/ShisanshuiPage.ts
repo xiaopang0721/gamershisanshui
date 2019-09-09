@@ -48,7 +48,7 @@ module gameshisanshui.page {
 			this.initPlayerInfo()
 			this._viewUI.box_normal.visible = !this._isRoomcardType;
 			this._viewUI.box_roomcard.visible = this._isRoomcardType;
-			(this._viewUI.view_hud as TongyongHudPage).onOpen(this._game, ShisanshuiPageDef.GAME_NAME, this._isRoomcardType);
+			(this._viewUI.view_hud as TongyongHudNqpPage).onOpen(this._game, ShisanshuiPageDef.GAME_NAME, this._isRoomcardType);
 			if (this._isRoomcardType) {
 				for (let index = 0; index < this._viewUI.box_roomcard.numChildren; index++) {
 					this._viewUI.box_right._childs[index].visible = true;
