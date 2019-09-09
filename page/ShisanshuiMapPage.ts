@@ -44,7 +44,7 @@ module gameshisanshui.page {
     }
 
     export class ShisanshuiMapPage extends game.gui.base.Page {
-        private _viewUI: ui.game_ui.shisanshui.ShiSanShuiUI;
+        private _viewUI: ui.nqp.game_ui.shisanshui.ShiSanShuiUI;
         private _mapInfo: ShisanshuiMapInfo;
         private _shisanshuiMgr: ShisanshuiMgr;
         private _shisanshuiStory: any;

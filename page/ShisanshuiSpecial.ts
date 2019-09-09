@@ -3,7 +3,7 @@
 */
 module gameshisanshui.page {
     export class ShisanshuiSpecial extends game.gui.base.Page {
-        private _viewUI: ui.game_ui.shisanshui.TipsUI;
+        private _viewUI: ui.nqp.game_ui.shisanshui.TipsUI;
         private _mapInfo: ShisanshuiMapInfo;
         private _cards: any = [];   //当前拼牌界面的牌
 

@@ -8,7 +8,7 @@ module gameshisanshui.page {
 		TYPE_DAXIAO = 2,
 	}
 	export class ShisanshuiRulePage extends game.gui.base.Page {
-		private _viewUI: ui.game_ui.shisanshui.ShiSanShui_GuiZeUI;
+		private _viewUI: ui.nqp.game_ui.shisanshui.ShiSanShui_GuiZeUI;
 
 		constructor(v: Game, onOpenFunc?: Function, onCloseFunc?: Function) {
 			super(v, onOpenFunc, onCloseFunc);

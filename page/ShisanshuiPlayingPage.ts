@@ -3,7 +3,7 @@
 */
 module gameshisanshui.page {
     export class ShisanshuiPlayingPage extends game.gui.base.Page {
-        private _viewUI: ui.game_ui.shisanshui.PaiXingTiShiUI;
+        private _viewUI: ui.nqp.game_ui.shisanshui.PaiXingTiShiUI;
         private _sssMgr: ShisanshuiMgr;
         private _sssStory: any;
         private _mapInfo: ShisanshuiMapInfo;

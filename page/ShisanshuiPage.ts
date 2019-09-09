@@ -3,7 +3,7 @@
 */
 module gameshisanshui.page {
 	export class ShisanshuiPage extends game.gui.base.Page {
-		private _viewUI: ui.game_ui.shisanshui.ShiSanShui_HUDUI;
+		private _viewUI: ui.nqp.game_ui.shisanshui.ShiSanShui_HUDUI;
 		private _player: any;
 		private _leastTmep: any = [1, 5, 20, 50];
 		private _needMoney: any = [20, 100, 400, 1000];
