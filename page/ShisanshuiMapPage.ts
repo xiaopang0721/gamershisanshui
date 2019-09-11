@@ -508,7 +508,7 @@ module gameshisanshui.page {
             if (this._isPlaying) {
                 TongyongPageDef.ins.alertRecharge(StringU.substitute("游戏中禁止退出，请先完成本轮" + this._mapInfo.GetCardRoomGameNumber() + "局游戏哦~~"), () => {
                 }, () => {
-                }, true, PathGameTongyong.ui_tongyong_general + "btn_qd.png");
+                }, true, TongyongPageDef.TIPS_SKIN_STR['qd']);
                 return false;
             }
             return !this._isPlaying;
@@ -1182,7 +1182,7 @@ module gameshisanshui.page {
                 TongyongPageDef.ins.alertRecharge(StringU.substitute("老板，您的金币少于{0}哦~\n补充点金币去大杀四方吧~", ChipConfig[this._shisanshuiStory.mapLv][0] * 8), () => {
                     this._game.uiRoot.general.open(DatingPageDef.PAGE_CHONGZHI);
                 }, () => {
-                }, false, PathGameTongyong.ui_tongyong_general + "btn_cz.png");
+                }, false,TongyongPageDef.TIPS_SKIN_STR['cz']);
             }
         }
 
@@ -1212,14 +1212,14 @@ module gameshisanshui.page {
             if (mainUnit.GetRoomMaster() != 1) {
                 TongyongPageDef.ins.alertRecharge(StringU.substitute("只有房主才可以选择开始游戏哦"), () => {
                 }, () => {
-                }, true, PathGameTongyong.ui_tongyong_general + "btn_qd.png");
+                }, true, TongyongPageDef.TIPS_SKIN_STR['qd']);
                 return;
             }
             this._shisanshuiMgr.totalUnitCount = this.getUnitCount();
             if (this._shisanshuiMgr.totalUnitCount < ShisanshuiMgr.MIN_CARD_SEATS_COUNT) {
                 TongyongPageDef.ins.alertRecharge(StringU.substitute("老板，再等等嘛，需要两个人才可以开始"), () => {
                 }, () => {
-                }, true, PathGameTongyong.ui_tongyong_general + "btn_qd.png");
+                }, true, TongyongPageDef.TIPS_SKIN_STR['qd']);
                 return;
             }
             this._shisanshuiStory.startRoomCardGame(mainUnit.guid, this._mapInfo.GetCardRoomId());
@@ -1232,7 +1232,7 @@ module gameshisanshui.page {
             if (mainUnit.GetRoomMaster() != 1) {
                 TongyongPageDef.ins.alertRecharge(StringU.substitute("只有房主才可以解散房间哦"), () => {
                 }, () => {
-                }, true, PathGameTongyong.ui_tongyong_general + "btn_qd.png");
+                }, true, TongyongPageDef.TIPS_SKIN_STR['qd']);
             } else {
                 if (!this._isGameEnd) {
                     TongyongPageDef.ins.alertRecharge("游戏未开始，解散房间不会扣除金币！\n是否解散房间？", () => {
