@@ -101,6 +101,7 @@ module gameshisanshui.page {
                 this._shisanshuiMgr = this._shisanshuiStory.sssMgr;
             }
             this._game.playMusic(Path_game_shisanshui.music_shisanshui + MUSIC_PATH.bgMusic);
+            this._viewUI.btn_menu.left = this._game.isFullScreen ? 25 : 10;
         }
 
         // 页面打开时执行函数
