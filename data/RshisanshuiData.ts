@@ -1,8 +1,8 @@
 /**
 * 十三水 
 */
-module gameshisanshui.data {
-	export class ShisanshuiData extends gamecomponent.object.PlayingPoker {
+module gamershisanshui.data {
+	export class RshisanshuiData extends gamecomponent.object.PlayingPoker {
 		private _posTemp = [[525, 550, 26], [1087, 309, -26], [725, 4, -26], [155, 309, 26]];	//初始牌的位置
 		private _cardsPosTemp = {	//出牌后各个位置各张牌的位置
 			0: [[598, 518], [633, 516], [654, 518], [562, 591], [599, 578], [632, 577], [656, 578], [687, 591], [562, 651], [599, 638], [632, 637], [656, 638], [687, 651]],

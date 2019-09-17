@@ -1,7 +1,7 @@
 /**
 * name 十三水-剧情
 */
-module gameshisanshui.story {
+module gamershisanshui.story {
 	const enum MAP_STATUS {
         MAP_STATE_NONE = 0,			//初始化
         MAP_STATE_CARDROOM_CREATED = 1,  	//房间创建后
@@ -17,13 +17,13 @@ module gameshisanshui.story {
         MAP_STATE_WAIT = 11,		//等待下一局
         MAP_STATE_END = 12,			//结束
     }
-	export class ShisanshuiStory extends gamecomponent.story.StoryNormalBase {
+	export class RshisanshuiStory extends gamecomponent.story.StoryRoomCardBase {
 		private _sssMgr: ShisanshuiMgr;
 		private _cardsTemp: any = [];
-		private _sssMapInfo: ShisanshuiMapInfo;
+		private _sssMapInfo: RshisanshuiMapInfo;
 
-		constructor(v: Game, mapid: string, maplv: number) {
-			super(v, mapid, maplv);
+		constructor(v: Game, mapid: string, maplv: number, dataSource: any) {
+			super(v, mapid, maplv, dataSource);
 			this.init();
 		}
 
@@ -34,8 +34,7 @@ module gameshisanshui.story {
 			this._game.sceneObjectMgr.on(SceneObjectMgr.EVENT_LOAD_MAP, this, this.onIntoNewMap);
 			this._game.sceneObjectMgr.on(SceneObjectMgr.EVENT_MAPINFO_CHANGE, this, this.onMapInfoChange);
 			this._game.sceneObjectMgr.on(MapInfo.EVENT_STATUS_CHECK, this, this.onUpdateState);
-			this.onIntoNewMap();
-			super.init();
+
 		}
 
 		get sssMgr() {
@@ -60,12 +59,10 @@ module gameshisanshui.story {
 
 		private onMapInfoChange(): void {
 			let mapinfo = this._game.sceneObjectMgr.mapInfo;
-			this._sssMapInfo = mapinfo as ShisanshuiMapInfo;
+			this._sssMapInfo = mapinfo as RshisanshuiMapInfo;
 			if (mapinfo) {
 				this.onUpdateState();
 				this.onUpdateCardInfo();
-			} else {
-				this._sssMgr.unitOffline = this._offlineUnit;
 			}
 		}
 
@@ -74,6 +71,7 @@ module gameshisanshui.story {
 			let mainUnit: Unit = this._game.sceneObjectMgr.mainUnit;
 			if (!mapinfo) return;
 			if (!mainUnit) return;
+			if (mainUnit.GetIndex() == 0) return;
 			let statue = mapinfo.GetMapState();
 			switch (statue) {
 				case MAP_STATUS.MAP_STATE_DEAL://发牌
@@ -92,6 +90,7 @@ module gameshisanshui.story {
 			let mainUnit: Unit = this._game.sceneObjectMgr.mainUnit;
 			if (!mapinfo) return;
 			if (!mainUnit) return;
+			if (mainUnit.GetIndex() == 0) return;
 			let statue = mapinfo.GetMapState();
 			if (statue >= MAP_STATUS.MAP_STATE_SHUFFLE && statue <= MAP_STATUS.MAP_STATE_WAIT) {
 				this._sssMgr.isReLogin = true;
@@ -119,40 +118,7 @@ module gameshisanshui.story {
 			}
 		}
 
-		createofflineUnit() {
-			//创建假的地图和精灵
-			let unitOffline = new UnitOffline(this._game.sceneObjectMgr);
-			if (this._game.sceneObjectMgr.mainPlayer) {
-				unitOffline.SetStr(UnitField.UNIT_STR_NAME, this._game.sceneObjectMgr.mainPlayer.playerInfo.nickname);
-				unitOffline.SetStr(UnitField.UNIT_STR_HEAD_IMG, this._game.sceneObjectMgr.mainPlayer.playerInfo.headimg);
-				unitOffline.SetDouble(UnitField.UNIT_INT_MONEY, this._game.sceneObjectMgr.mainPlayer.playerInfo.money);
-				unitOffline.SetUInt32(UnitField.UNIT_INT_QI_FU_END_TIME, this._game.sceneObjectMgr.mainPlayer.playerInfo.qifu_endtime);
-				unitOffline.SetUInt32(UnitField.UNIT_INT_QI_FU_TYPE, this._game.sceneObjectMgr.mainPlayer.playerInfo.qifu_type);
-				unitOffline.SetUInt32(UnitField.UNIT_INT_VIP_LEVEL, this._game.sceneObjectMgr.mainPlayer.playerInfo.vip_level);
-			}
-			unitOffline.SetUInt16(UnitField.UNIT_INT_UINT16, 0, 1);
-
-			this._offlineUnit = unitOffline;
-		}
-
-		enterMap() {
-			//各种判断
-			if (this.mapinfo) return false;
-			if (!this.maplv) {
-				this.maplv = this._last_maplv;
-			}
-			this._game.network.call_match_game(this._mapid, this.maplv)
-			return true;
-		}
-
-		leavelMap() {
-			//各种判断
-			this._game.network.call_leave_game();
-			return true;
-		}
-
 		clear() {
-			super.clear();
 			this._game.sceneObjectMgr.off(SceneObjectMgr.EVENT_LOAD_MAP, this, this.onIntoNewMap);
 			this._game.sceneObjectMgr.off(SceneObjectMgr.EVENT_MAPINFO_CHANGE, this, this.onMapInfoChange);
 			this._game.sceneObjectMgr.off(MapInfo.EVENT_STATUS_CHECK, this, this.onUpdateState);

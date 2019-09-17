@@ -1,9 +1,9 @@
 /**
 * 十三水-HUD
 */
-module gameshisanshui.page {
-	export class ShisanshuiPage extends game.gui.base.Page {
-		private _viewUI: ui.game_ui.shisanshui.ShiSanShui_HUDUI;
+module gamershisanshui.page {
+	export class RshisanshuiPage extends game.gui.base.Page {
+		private _viewUI: ui.nqp.game_ui.shisanshui.ShiSanShui_HUDUI;
 		private _player: any;
 		private _leastTmep: any = [1, 5, 20, 50];
 		private _needMoney: any = [20, 100, 400, 1000];
@@ -48,7 +48,7 @@ module gameshisanshui.page {
 			this.initPlayerInfo()
 			this._viewUI.box_normal.visible = !this._isRoomcardType;
 			this._viewUI.box_roomcard.visible = this._isRoomcardType;
-			(this._viewUI.view_hud as TongyongHudPage).onOpen(this._game, ShisanshuiPageDef.GAME_NAME, this._isRoomcardType);
+			(this._viewUI.view_hud as TongyongHudNqpPage).onOpen(this._game, RshisanshuiPageDef.GAME_NAME, this._isRoomcardType);
 			if (this._isRoomcardType) {
 				for (let index = 0; index < this._viewUI.box_roomcard.numChildren; index++) {
 					this._viewUI.box_right._childs[index].visible = true;
@@ -83,34 +83,34 @@ module gameshisanshui.page {
 						this.showTipsBox(this._needMoney[0]);
 						return;
 					}
-					this._game.sceneObjectMgr.intoStory(ShisanshuiPageDef.GAME_NAME, Web_operation_fields.GAME_ROOM_CONFIG_SHISANSHUI_1.toString());
+					this._game.sceneObjectMgr.intoStory(RshisanshuiPageDef.GAME_NAME, Web_operation_fields.GAME_ROOM_CONFIG_SHISANSHUI_1.toString());
 					break;
 				case this._viewUI.img_room1:
 					if (this._player.playerInfo.money < this._needMoney[1]) {
 						this.showTipsBox(this._needMoney[1]);
 						return;
 					}
-					this._game.sceneObjectMgr.intoStory(ShisanshuiPageDef.GAME_NAME, Web_operation_fields.GAME_ROOM_CONFIG_SHISANSHUI_2.toString());
+					this._game.sceneObjectMgr.intoStory(RshisanshuiPageDef.GAME_NAME, Web_operation_fields.GAME_ROOM_CONFIG_SHISANSHUI_2.toString());
 					break;
 				case this._viewUI.img_room2:
 					if (this._player.playerInfo.money < this._needMoney[2]) {
 						this.showTipsBox(this._needMoney[2]);
 						return;
 					}
-					this._game.sceneObjectMgr.intoStory(ShisanshuiPageDef.GAME_NAME, Web_operation_fields.GAME_ROOM_CONFIG_SHISANSHUI_3.toString());
+					this._game.sceneObjectMgr.intoStory(RshisanshuiPageDef.GAME_NAME, Web_operation_fields.GAME_ROOM_CONFIG_SHISANSHUI_3.toString());
 					break;
 				case this._viewUI.img_room3:
 					if (this._player.playerInfo.money < this._needMoney[3]) {
 						this.showTipsBox(this._needMoney[3]);
 						return;
 					}
-					this._game.sceneObjectMgr.intoStory(ShisanshuiPageDef.GAME_NAME, Web_operation_fields.GAME_ROOM_CONFIG_SHISANSHUI_4.toString());
+					this._game.sceneObjectMgr.intoStory(RshisanshuiPageDef.GAME_NAME, Web_operation_fields.GAME_ROOM_CONFIG_SHISANSHUI_4.toString());
 					break;
 				case this._viewUI.img_room_create:
-					this._game.uiRoot.general.open(ShisanshuiPageDef.PAGE_SSS_CREATE_CARDROOM);
+					this._game.uiRoot.general.open(RshisanshuiPageDef.PAGE_SSS_CREATE_CARDROOM);
 					break;
 				case this._viewUI.img_room_join:
-					this._game.uiRoot.general.open(ShisanshuiPageDef.PAGE_SSS_JOIN_CARDROOM);
+					this._game.uiRoot.general.open(RshisanshuiPageDef.PAGE_SSS_JOIN_CARDROOM);
 					break;
 				default:
 					break;

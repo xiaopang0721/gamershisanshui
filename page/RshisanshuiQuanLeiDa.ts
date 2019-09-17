@@ -1,9 +1,9 @@
 /**
 * 十三水-全垒打
 */
-module gameshisanshui.page {
-    export class ShisanshuiQuanLeiDa extends game.gui.base.Page {
-        private _viewUI: ui.game_ui.shisanshui.QuanLeiDaUI;
+module gamershisanshui.page {
+    export class RshisanshuiQuanLeiDa extends game.gui.base.Page {
+        private _viewUI: ui.nqp.game_ui.shisanshui.QuanLeiDaUI;
 
         constructor(v: Game, onOpenFunc?: Function, onCloseFunc?: Function) {
             super(v, onOpenFunc, onCloseFunc);

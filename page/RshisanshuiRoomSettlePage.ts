@@ -1,9 +1,9 @@
 /**
 * 房卡类型游戏结算页面
 */
-module gameshisanshui.page {
-    export class ShisanshuiRoomSettlePage extends game.gui.base.Page {
-        private _viewUI: ui.game_ui.shisanshui.JieSuan_FangKaUI;
+module gamershisanshui.page {
+    export class RshisanshuiRoomSettlePage extends game.gui.base.Page {
+        private _viewUI: ui.nqp.game_ui.shisanshui.JieSuan_FangKaUI;
         private _isGameEnd: boolean = false;  //是否结束
 
         constructor(v: Game, onOpenFunc?: Function, onCloseFunc?: Function) {
@@ -92,7 +92,7 @@ module gameshisanshui.page {
         }
     }
 
-    class ListRecordItem extends ui.game_ui.tongyong.JieSuanRender3UI {
+    class ListRecordItem extends ui.nqp.game_ui.tongyong.JieSuanRender3UI {
         private _game: Game;
         private _data: any;
         setData(game: Game, data: any) {

@@ -1,7 +1,7 @@
 /**
 * 路径配置
 */
-module gameshisanshui.data {
+module gamershisanshui.data {
 	export class Path {
 		static readonly music_shisanshui: string = 'music/shisanshui/';
 		static readonly ui_shisanshui: string = "shisanshui_ui/game_ui/shisanshui/";
