@@ -3,6 +3,6 @@
 */
 module gamershisanshui.page {
 	export class RshisanshuiCreadRoomPage extends gametongyong.page.CreateCardRoomBase {
-		readonly game_id = "shisanshui";
+		readonly game_id = "rshisanshui";
 	}
 }

@@ -46,8 +46,8 @@ module gamershisanshui.page {
 				PathGameTongyong.atlas_game_ui_tongyong + "logo.atlas",
 				Path.custom_atlas_scene + 'card.atlas',
 
-				Path.map + 'pz_shisanshui.png',
-				Path.map_far + 'bg_shisanshui.jpg'
+				Path.map + 'pz_rshisanshui.png',
+				Path.map_far + 'bg_rshisanshui.jpg'
 			]
 
 			if (WebConfig.needMusicPreload) {
