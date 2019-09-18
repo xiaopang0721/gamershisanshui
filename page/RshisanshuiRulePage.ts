@@ -1,13 +1,13 @@
 /**
 * 十三水-规则
 */
-module gameshisanshui.page {
+module gamershisanshui.page {
 	const enum TYPE_INDEX {
 		TYPE_WANFA_JIESHAO = 0,
 		TYPE_CARD_TYPE = 1,
 		TYPE_DAXIAO = 2,
 	}
-	export class ShisanshuiRulePage extends game.gui.base.Page {
+	export class RshisanshuiRulePage extends game.gui.base.Page {
 		private _viewUI: ui.nqp.game_ui.shisanshui.ShiSanShui_GuiZeUI;
 
 		constructor(v: Game, onOpenFunc?: Function, onCloseFunc?: Function) {

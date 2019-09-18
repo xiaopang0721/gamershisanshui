@@ -1,12 +1,12 @@
 /**
 * 十三水-拼牌界面
 */
-module gameshisanshui.page {
-    export class ShisanshuiPlayingPage extends game.gui.base.Page {
+module gamershisanshui.page {
+    export class RshisanshuiPlayingPage extends game.gui.base.Page {
         private _viewUI: ui.nqp.game_ui.shisanshui.PaiXingTiShiUI;
         private _sssMgr: ShisanshuiMgr;
         private _sssStory: any;
-        private _mapInfo: ShisanshuiMapInfo;
+        private _mapInfo: RshisanshuiMapInfo;
         private _playCardsTemp: any = []; //要出的牌
         private _cards: any = [];   //当前拼牌界面的牌
         private _chooseCards: any = []; //已选中的牌
@@ -48,11 +48,7 @@ module gameshisanshui.page {
             this._viewUI = this.createView('game_ui.shisanshui.PaiXingTiShiUI');
             this.addChild(this._viewUI);
             if (!this._sssMgr) {
-                if (this._game.sceneObjectMgr.story instanceof ShisanshuiStory) {
-                    this._sssStory = this._game.sceneObjectMgr.story as ShisanshuiStory;
-                } else if (this._game.sceneObjectMgr.story instanceof ShisanshuiCardRoomStory) {
-                    this._sssStory = this._game.sceneObjectMgr.story as ShisanshuiCardRoomStory;
-                }
+                this._sssStory = this._game.sceneObjectMgr.story as RshisanshuiStory;
                 this._sssMgr = this._sssStory.sssMgr;
             }
         }
@@ -63,7 +59,7 @@ module gameshisanshui.page {
 
             let mapInfo = this._game.sceneObjectMgr.mapInfo;
             if (mapInfo) {
-                this._mapInfo = mapInfo as ShisanshuiMapInfo;
+                this._mapInfo = mapInfo as RshisanshuiMapInfo;
                 this._countDown = this._mapInfo.GetCountDown();
                 this.updateBattledInfo();
             }
@@ -125,7 +121,7 @@ module gameshisanshui.page {
 
         //操作倒计时
         deltaUpdate(): void {
-            if (!(this._game.sceneObjectMgr.mapInfo instanceof ShisanshuiMapInfo)) return;
+            if (!(this._game.sceneObjectMgr.mapInfo instanceof RshisanshuiMapInfo)) return;
             if (!this._viewUI) return;
             let curTime = this._game.sync.serverTimeBys;
             let time = Math.floor(this._countDown - curTime);
@@ -657,7 +653,7 @@ module gameshisanshui.page {
                 let battleInfo = battleInfoMgr.info[i] as gamecomponent.object.BattleInfoBase;
                 if (battleInfo.Type == 3 && i > this._battleInfoIdx) {
                     this._battleInfoIdx = i;
-                    let info = battleInfoMgr.info[i] as gamecomponent.object.BattleInfoPlayCard<data.ShisanshuiData>;
+                    let info = battleInfoMgr.info[i] as gamecomponent.object.BattleInfoPlayCard<data.RshisanshuiData>;
                     let idx = info.SeatIndex;
                     if (idx == mainIdx) {
                         for (let index = 0; index < info.Cards.length; index++) {
@@ -665,8 +661,8 @@ module gameshisanshui.page {
                             this._cards.push(card);
                         }
                         if (info.CardType > 0) {
-                            if (!this._game.uiRoot.general.isOpened(ShisanshuiPageDef.PAGE_SSS_SPECIAL)) {
-                                this._game.uiRoot.general.open(ShisanshuiPageDef.PAGE_SSS_SPECIAL)
+                            if (!this._game.uiRoot.general.isOpened(RshisanshuiPageDef.PAGE_SSS_SPECIAL)) {
+                                this._game.uiRoot.general.open(RshisanshuiPageDef.PAGE_SSS_SPECIAL)
                             }
                         }
                         this.creatCards();

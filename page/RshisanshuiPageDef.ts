@@ -1,8 +1,8 @@
 /**
 * 十三水 
 */
-module gameshisanshui.page {
-	export class ShisanshuiPageDef extends game.gui.page.PageDef {
+module gamershisanshui.page {
+	export class RshisanshuiPageDef extends game.gui.page.PageDef {
 		static GAME_NAME: string;
 		//界面
 		static PAGE_SSS: string = "1";			//HUD界面
@@ -18,15 +18,15 @@ module gameshisanshui.page {
 		static myinit(str: string) {
 			super.myinit(str);
 			ShisanshuiClip.init();
-			PageDef._pageClassMap[ShisanshuiPageDef.PAGE_SSS] = ShisanshuiPage;
-			PageDef._pageClassMap[ShisanshuiPageDef.PAGE_SSS_MAP] = ShisanshuiMapPage;
-			PageDef._pageClassMap[ShisanshuiPageDef.PAGE_SSS_RULE] = ShisanshuiRulePage;
-			PageDef._pageClassMap[ShisanshuiPageDef.PAGE_SSS_PLAYING] = ShisanshuiPlayingPage;
-			PageDef._pageClassMap[ShisanshuiPageDef.PAGE_SSS_QUANLEIDA] = ShisanshuiQuanLeiDa;
-			PageDef._pageClassMap[ShisanshuiPageDef.PAGE_SSS_SPECIAL] = ShisanshuiSpecial;
-			PageDef._pageClassMap[ShisanshuiPageDef.PAGE_SSS_CREATE_CARDROOM] = ShisanshuiCreadRoomPage;
-			PageDef._pageClassMap[ShisanshuiPageDef.PAGE_SSS_JOIN_CARDROOM] = ShisanshuiJoinRoomPage;
-			PageDef._pageClassMap[ShisanshuiPageDef.PAGE_SSS_CARDROOM_SETTLE] = ShisanshuiRoomSettlePage;
+			PageDef._pageClassMap[RshisanshuiPageDef.PAGE_SSS] = RshisanshuiPage;
+			PageDef._pageClassMap[RshisanshuiPageDef.PAGE_SSS_MAP] = RshisanshuiMapPage;
+			PageDef._pageClassMap[RshisanshuiPageDef.PAGE_SSS_RULE] = RshisanshuiRulePage;
+			PageDef._pageClassMap[RshisanshuiPageDef.PAGE_SSS_PLAYING] = RshisanshuiPlayingPage;
+			PageDef._pageClassMap[RshisanshuiPageDef.PAGE_SSS_QUANLEIDA] = RshisanshuiQuanLeiDa;
+			PageDef._pageClassMap[RshisanshuiPageDef.PAGE_SSS_SPECIAL] = RshisanshuiSpecial;
+			PageDef._pageClassMap[RshisanshuiPageDef.PAGE_SSS_CREATE_CARDROOM] = RshisanshuiCreadRoomPage;
+			PageDef._pageClassMap[RshisanshuiPageDef.PAGE_SSS_JOIN_CARDROOM] = RshisanshuiJoinRoomPage;
+			PageDef._pageClassMap[RshisanshuiPageDef.PAGE_SSS_CARDROOM_SETTLE] = RshisanshuiRoomSettlePage;
 
 
 
@@ -46,8 +46,8 @@ module gameshisanshui.page {
 				PathGameTongyong.atlas_game_ui_tongyong + "logo.atlas",
 				Path.custom_atlas_scene + 'card.atlas',
 
-				Path.map + 'pz_shisanshui.png',
-				Path.map_far + 'bg_shisanshui.jpg'
+				Path.map + 'pz_rshisanshui.png',
+				Path.map_far + 'bg_rshisanshui.jpg'
 			]
 
 			if (WebConfig.needMusicPreload) {

@@ -1,10 +1,9 @@
 //十三水
-import ShisanshuiMgr = gameshisanshui.manager.ShisanshuiMgr;
-import ShisanshuiStory = gameshisanshui.story.ShisanshuiStory;
-import ShisanshuiMapInfo = gameshisanshui.data.ShisanshuiMapInfo;
-import ShisanshuiData = gameshisanshui.data.ShisanshuiData;
-import ShisanshuiCardRoomStory = gameshisanshui.story.ShisanshuiCardRoomStory;
-import ShisanshuiPageDef = gameshisanshui.page.ShisanshuiPageDef;
+import ShisanshuiMgr = gamershisanshui.manager.RshisanshuiMgr;
+import RshisanshuiMapInfo = gamershisanshui.data.RshisanshuiMapInfo;
+import ShisanshuiData = gamershisanshui.data.RshisanshuiData;
+import RshisanshuiStory = gamershisanshui.story.RshisanshuiStory;
+import ShisanshuiPageDef = gamershisanshui.page.RshisanshuiPageDef;
 //
-import Path_game_shisanshui = gameshisanshui.data.Path;
-import ShisanshuiClip = gameshisanshui.ClipUtil;
+import Path_game_shisanshui = gamershisanshui.data.Path;
+import ShisanshuiClip = gamershisanshui.ClipUtil;

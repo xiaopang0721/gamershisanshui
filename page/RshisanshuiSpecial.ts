@@ -1,10 +1,10 @@
 /**
 * 十三水-拼牌界面
 */
-module gameshisanshui.page {
-    export class ShisanshuiSpecial extends game.gui.base.Page {
+module gamershisanshui.page {
+    export class RshisanshuiSpecial extends game.gui.base.Page {
         private _viewUI: ui.nqp.game_ui.shisanshui.TipsUI;
-        private _mapInfo: ShisanshuiMapInfo;
+        private _mapInfo: RshisanshuiMapInfo;
         private _cards: any = [];   //当前拼牌界面的牌
 
         constructor(v: Game, onOpenFunc?: Function, onCloseFunc?: Function) {
@@ -30,7 +30,7 @@ module gameshisanshui.page {
 
             let mapInfo = this._game.sceneObjectMgr.mapInfo;
             if (mapInfo) {
-                this._mapInfo = mapInfo as ShisanshuiMapInfo;
+                this._mapInfo = mapInfo as RshisanshuiMapInfo;
                 this.updateBattledInfo();
             }
             this._viewUI.btn_cancle.on(LEvent.CLICK, this, this.onBtnClickWithTween);
@@ -62,7 +62,7 @@ module gameshisanshui.page {
             for (let i = 0; i < battleInfoMgr.info.length; i++) {
                 let battleInfo = battleInfoMgr.info[i] as gamecomponent.object.BattleInfoBase;
                 if (battleInfo.Type == 3) {
-                    let info = battleInfoMgr.info[i] as gamecomponent.object.BattleInfoPlayCard<data.ShisanshuiData>;
+                    let info = battleInfoMgr.info[i] as gamecomponent.object.BattleInfoPlayCard<data.RshisanshuiData>;
                     let idx = info.SeatIndex;
                     if (idx == mainIdx) {
                         for (let index = 0; index < info.Cards.length; index++) {

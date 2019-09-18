@@ -1,8 +1,8 @@
 /**
 * 房卡类型游戏结算页面
 */
-module gameshisanshui.page {
-    export class ShisanshuiRoomSettlePage extends game.gui.base.Page {
+module gamershisanshui.page {
+    export class RshisanshuiRoomSettlePage extends game.gui.base.Page {
         private _viewUI: ui.nqp.game_ui.shisanshui.JieSuan_FangKaUI;
         private _isGameEnd: boolean = false;  //是否结束
 

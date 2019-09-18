@@ -1,7 +1,7 @@
 /**
 * 十三水-牌 
 */
-module gameshisanshui.manager {
+module gamershisanshui.manager {
 	const enum CARD_TYPE {
 		CARDS_TYPE_POINTS = 1,	//点数牌
 		CARDS_TYPE_WL = 0, //乌龙
@@ -29,7 +29,7 @@ module gameshisanshui.manager {
 	}
 	const MIN_CHECKTIME: number = 1000;//最小检测时间间隔(毫秒)
 
-	export class ShisanshuiMgr extends gamecomponent.managers.PlayingCardMgrBase<ShisanshuiData>{
+	export class RshisanshuiMgr extends gamecomponent.managers.PlayingCardMgrBase<ShisanshuiData>{
 		public isReLogin: boolean;		//是否断线重连，各种判断操作用的
 		public cardsTemp: any = [];	//牌数据
 
@@ -55,7 +55,7 @@ module gameshisanshui.manager {
 
 		set unitOffline(v) {
 			this._unitOffline = v;
-			this.event(ShisanshuiMgr.MAPINFO_OFFLINE)
+			this.event(RshisanshuiMgr.MAPINFO_OFFLINE)
 		}
 
 		get isReDealCard() {
@@ -360,7 +360,7 @@ module gameshisanshui.manager {
 							card.fapai();
 							cardIndex++;
 							if (cardIndex == this._cards.length)
-								this.event(ShisanshuiMgr.DEAL_CARDS)
+								this.event(RshisanshuiMgr.DEAL_CARDS)
 						});
 						count++;
 					}

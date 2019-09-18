@@ -1,11 +1,11 @@
 /**
 * 十三水-地图 
 */
-module gameshisanshui.data {
+module gamershisanshui.data {
 	//十三水牌型
 	const cardType = ["乌龙", "对子", "两对", "三条", "顺子", "同花", "葫芦", "铁枝", "同花顺", "三同花", "三顺子", "六对半", "五对三条",
 		"四套三条", "凑一色", "全小", "全大", "三分天下", "三同花顺", "十二皇族", "一条龙", "至尊青龙"];
-	export class ShisanshuiMapInfo extends gamecomponent.object.MapInfoT<ShisanshuiData> {
+	export class RshisanshuiMapInfo extends gamecomponent.object.MapInfoT<RshisanshuiData> {
 		//地图状态变更
 		static EVENT_SSS_STATUS_CHECK: string = "ShisanshuiMapInfo.EVENT_SSS_STATUS_CHECK";
 		//战斗体更新
@@ -15,7 +15,7 @@ module gameshisanshui.data {
 		private isFirst: boolean = false;	//只是显示详情空行用的
 
 		constructor(v: SceneObjectMgr) {
-			super(v, () => { return new ShisanshuiData() });
+			super(v, () => { return new RshisanshuiData() });
 		}
 
 		onUpdate(flags: number, mask: UpdateMask, strmask: UpdateMask): void {
@@ -23,13 +23,13 @@ module gameshisanshui.data {
 			let isNew = flags & core.obj.OBJ_OPT_NEW;
 			if (isNew || mask.GetBit(MapField.MAP_INT_BATTLE_INDEX)) {
 				this._battleInfoMgr.OnUpdate();
-				this._sceneObjectMgr.event(ShisanshuiMapInfo.EVENT_SSS_BATTLE_CHECK);
+				this._sceneObjectMgr.event(RshisanshuiMapInfo.EVENT_SSS_BATTLE_CHECK);
 			}
 			if (isNew || mask.GetBit(MapField.MAP_INT_MAP_BYTE)) {
-				this._sceneObjectMgr.event(ShisanshuiMapInfo.EVENT_SSS_STATUS_CHECK);
+				this._sceneObjectMgr.event(RshisanshuiMapInfo.EVENT_SSS_STATUS_CHECK);
 			}
 			if (isNew || mask.GetBit(MapField.MAP_INT_COUNT_DOWN)) {
-				this._sceneObjectMgr.event(ShisanshuiMapInfo.EVENT_SSS_COUNT_DOWN);
+				this._sceneObjectMgr.event(RshisanshuiMapInfo.EVENT_SSS_COUNT_DOWN);
 			}
 		}
 

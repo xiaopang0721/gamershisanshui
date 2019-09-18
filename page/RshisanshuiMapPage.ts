@@ -1,7 +1,7 @@
 /**
 * 十三水-房间
 */
-module gameshisanshui.page {
+module gamershisanshui.page {
     const enum MAP_STATUS {
         MAP_STATE_NONE = 0,			//初始化
         MAP_STATE_CARDROOM_CREATED = 1,  	//房间创建后
@@ -43,9 +43,9 @@ module gameshisanshui.page {
         quanLeiDaMusic: "all_",
     }
 
-    export class ShisanshuiMapPage extends game.gui.base.Page {
+    export class RshisanshuiMapPage extends game.gui.base.Page {
         private _viewUI: ui.nqp.game_ui.shisanshui.ShiSanShuiUI;
-        private _mapInfo: ShisanshuiMapInfo;
+        private _mapInfo: RshisanshuiMapInfo;
         private _shisanshuiMgr: ShisanshuiMgr;
         private _shisanshuiStory: any;
         private _battleIndex: number = -1;
@@ -92,16 +92,11 @@ module gameshisanshui.page {
             this._viewUI = this.createView('game_ui.shisanshui.ShiSanShuiUI');
             this.addChild(this._viewUI);
             this._pageHandle = PageHandle.Get("ShisanshuiMapPage");//额外界面控制器
-            if (!this._shisanshuiMgr) {
-                if (this._game.sceneObjectMgr.story instanceof ShisanshuiStory) {
-                    this._shisanshuiStory = this._game.sceneObjectMgr.story as ShisanshuiStory;
-                } else if (this._game.sceneObjectMgr.story instanceof ShisanshuiCardRoomStory) {
-                    this._shisanshuiStory = this._game.sceneObjectMgr.story as ShisanshuiCardRoomStory;
-                }
+            if (!this._shisanshuiMgr) {  
+                this._shisanshuiStory = this._game.sceneObjectMgr.story as RshisanshuiStory;
                 this._shisanshuiMgr = this._shisanshuiStory.sssMgr;
             }
             this._game.playMusic(Path_game_shisanshui.music_shisanshui + MUSIC_PATH.bgMusic);
-            this._viewUI.btn_menu.left = this._game.isFullScreen ? 25 : 10;
         }
 
         // 页面打开时执行函数
@@ -118,9 +113,9 @@ module gameshisanshui.page {
             this._game.sceneObjectMgr.on(SceneObjectMgr.EVENT_UNIT_MONEY_CHANGE, this, this.onUpdateUnit);
             this._game.sceneObjectMgr.on(SceneObjectMgr.EVENT_UNIT_CHANGE, this, this.onUpdateUnit);
             this._game.sceneObjectMgr.on(SceneObjectMgr.EVENT_UNIT_ACTION, this, this.onUpdateUnit);
-            this._game.sceneObjectMgr.on(ShisanshuiMapInfo.EVENT_SSS_STATUS_CHECK, this, this.onUpdateMapState);
-            this._game.sceneObjectMgr.on(ShisanshuiMapInfo.EVENT_SSS_BATTLE_CHECK, this, this.updateBattledInfo);
-            this._game.sceneObjectMgr.on(ShisanshuiMapInfo.EVENT_SSS_COUNT_DOWN, this, this.updateCountDown);//倒计时更新
+            this._game.sceneObjectMgr.on(RshisanshuiMapInfo.EVENT_SSS_STATUS_CHECK, this, this.onUpdateMapState);
+            this._game.sceneObjectMgr.on(RshisanshuiMapInfo.EVENT_SSS_BATTLE_CHECK, this, this.updateBattledInfo);
+            this._game.sceneObjectMgr.on(RshisanshuiMapInfo.EVENT_SSS_COUNT_DOWN, this, this.updateCountDown);//倒计时更新
             this._game.sceneObjectMgr.on(SceneObjectMgr.EVENT_UNIT_QIFU_TIME_CHANGE, this, this.onUpdateUnit);
             this._game.sceneObjectMgr.on(SceneObjectMgr.EVENT_MAIN_UNIT_CHANGE, this, this.updateCardRoomDisplayInfo);
             this._game.network.addHanlder(Protocols.SMSG_OPERATION_FAILED, this, this.onOptHandler);
@@ -181,7 +176,7 @@ module gameshisanshui.page {
                     this._viewUI.btn_menu.visible = false;
                     break;
                 case this._viewUI.btn_back:
-                    let mapinfo: ShisanshuiMapInfo = this._game.sceneObjectMgr.mapInfo as ShisanshuiMapInfo;
+                    let mapinfo: RshisanshuiMapInfo = this._game.sceneObjectMgr.mapInfo as RshisanshuiMapInfo;
                     if (this.isCardRoomType) {
                         if (!this.canEndCardGame()) return;
                         if (this._shisanshuiStory.isCardRoomMaster() && !this._isGameEnd) {
@@ -204,12 +199,12 @@ module gameshisanshui.page {
                     // this.close();
                     break;
                 case this._viewUI.btn_cardtype:
-                    this._game.uiRoot.general.open(ShisanshuiPageDef.PAGE_SSS_RULE, (page: ShisanshuiRulePage) => {
+                    this._game.uiRoot.general.open(RshisanshuiPageDef.PAGE_SSS_RULE, (page: RshisanshuiRulePage) => {
                         page.dataSource = 1;
                     });
                     break;
                 case this._viewUI.btn_rules:
-                    this._game.uiRoot.general.open(ShisanshuiPageDef.PAGE_SSS_RULE);
+                    this._game.uiRoot.general.open(RshisanshuiPageDef.PAGE_SSS_RULE);
                     break;
                 case this._viewUI.btn_qifu:
                     this._game.uiRoot.general.open(TongyongPageDef.PAGE_TONGYONG_QIFU);
@@ -220,7 +215,7 @@ module gameshisanshui.page {
                 case this._viewUI.btn_record:
                     this._game.uiRoot.general.open(TongyongPageDef.PAGE_TONGYONG_RECORD, (page) => {
                         page.dataSource = {
-                            gameid: ShisanshuiPageDef.GAME_NAME,
+                            gameid: RshisanshuiPageDef.GAME_NAME,
                             isCardRoomType: this._mapInfo.GetMapLevel() == Web_operation_fields.GAME_ROOM_CONFIG_CARD_ROOM,
                         };
                     });
@@ -251,7 +246,7 @@ module gameshisanshui.page {
                 case this._viewUI.vw_card.btn_invite://房卡邀请
                     // 微信邀请玩家参与房卡游戏
                     if (this.isCardRoomType && this._mapInfo.GetCardRoomId()) {
-                        this._game.network.call_get_roomcard_share(ShisanshuiPageDef.GAME_NAME);
+                        this._game.network.call_get_roomcard_share(RshisanshuiPageDef.GAME_NAME);
                     }
                     break;
                 case this._viewUI.vw_card.btn_dismiss://房卡解散
@@ -295,7 +290,7 @@ module gameshisanshui.page {
 
         //精灵显示
         private onUpdateUnit(qifu_index?: number): void {
-            let mapinfo: ShisanshuiMapInfo = this._game.sceneObjectMgr.mapInfo as ShisanshuiMapInfo;
+            let mapinfo: RshisanshuiMapInfo = this._game.sceneObjectMgr.mapInfo as RshisanshuiMapInfo;
             if (!mapinfo) return;
             let mainUnit = this._game.sceneObjectMgr.mainUnit;
             if (!mainUnit) return;
@@ -398,7 +393,7 @@ module gameshisanshui.page {
         //地图监听
         private onUpdateMapInfo(): void {
             let mapInfo = this._game.sceneObjectMgr.mapInfo;
-            this._mapInfo = mapInfo as ShisanshuiMapInfo;
+            this._mapInfo = mapInfo as RshisanshuiMapInfo;
             if (mapInfo) {
                 this._viewUI.btn_continue.visible = false;
                 if (this._shisanshuiMgr.isReLogin) {
@@ -509,7 +504,7 @@ module gameshisanshui.page {
             if (this._isPlaying) {
                 TongyongPageDef.ins.alertRecharge(StringU.substitute("游戏中禁止退出，请先完成本轮" + this._mapInfo.GetCardRoomGameNumber() + "局游戏哦~~"), () => {
                 }, () => {
-                }, true, TongyongPageDef.TIPS_SKIN_STR['qd']);
+                }, true, PathGameTongyong.ui_tongyong_general + "btn_qd.png");
                 return false;
             }
             return !this._isPlaying;
@@ -566,13 +561,13 @@ module gameshisanshui.page {
                 this._viewUI.text_info.visible = true;
             }
             if (state == MAP_STATUS.MAP_STATE_SHUFFLE) {
-                this._pageHandle.pushClose({ id: ShisanshuiPageDef.PAGE_SSS_CARDROOM_SETTLE, parent: this._game.uiRoot.HUD });
+                this._pageHandle.pushClose({ id: RshisanshuiPageDef.PAGE_SSS_CARDROOM_SETTLE, parent: this._game.uiRoot.HUD });
             }
             if (state == MAP_STATUS.MAP_STATE_PLAYING) {
                 if (!this._isPlayCard) {
                     //隐藏牌
                     this._shisanshuiMgr.setCardVisible(false);
-                    this._game.uiRoot.general.open(ShisanshuiPageDef.PAGE_SSS_PLAYING, (page: ShisanshuiPlayingPage) => {
+                    this._game.uiRoot.general.open(RshisanshuiPageDef.PAGE_SSS_PLAYING, (page: RshisanshuiPlayingPage) => {
                         page.setBattleInfoIdx(this._battleIndex);
                     });
                     this._game.playSound(Path_game_shisanshui.music_shisanshui + MUSIC_PATH.chuPaiMusic, false);
@@ -586,8 +581,8 @@ module gameshisanshui.page {
                     }
                 }
             } else {
-                if (this._game.uiRoot.general.isOpened(ShisanshuiPageDef.PAGE_SSS_PLAYING)) {
-                    this._game.uiRoot.general.close(ShisanshuiPageDef.PAGE_SSS_PLAYING);
+                if (this._game.uiRoot.general.isOpened(RshisanshuiPageDef.PAGE_SSS_PLAYING)) {
+                    this._game.uiRoot.general.close(RshisanshuiPageDef.PAGE_SSS_PLAYING);
                 }
                 for (let i = 0; i < MAX_SEAT; i++) {
                     this._viewUI["box_show" + i].visible = false;
@@ -603,8 +598,8 @@ module gameshisanshui.page {
                 this._game.playSound(Path_game_shisanshui.music_shisanshui + MUSIC_PATH.biPaiMusic, false);
             }
             if (state != MAP_STATUS.MAP_STATE_QUANLEIDA) {
-                if (this._game.uiRoot.general.isOpened(ShisanshuiPageDef.PAGE_SSS_QUANLEIDA)) {
-                    this._game.uiRoot.general.close(ShisanshuiPageDef.PAGE_SSS_QUANLEIDA);
+                if (this._game.uiRoot.general.isOpened(RshisanshuiPageDef.PAGE_SSS_QUANLEIDA)) {
+                    this._game.uiRoot.general.close(RshisanshuiPageDef.PAGE_SSS_QUANLEIDA);
                 }
             }
             if (state == MAP_STATUS.MAP_STATE_SPECIAL) {
@@ -682,7 +677,7 @@ module gameshisanshui.page {
             infoTemps.push(this._mapInfo.GetRound() + 1);
             infoTemps.push(this._mapInfo.GetCardRoomGameNumber());
             infoTemps.push(temps);
-            this._pageHandle.pushOpen({ id: ShisanshuiPageDef.PAGE_SSS_CARDROOM_SETTLE, dataSource: infoTemps, parent: this._game.uiRoot.HUD });
+            this._pageHandle.pushOpen({ id: RshisanshuiPageDef.PAGE_SSS_CARDROOM_SETTLE, dataSource: infoTemps, parent: this._game.uiRoot.HUD });
         }
 
         //特殊牌特效播放
@@ -730,14 +725,14 @@ module gameshisanshui.page {
 
         //更新倒计时时间戳
         private updateCountDown(): void {
-            let mapinfo: ShisanshuiMapInfo = this._game.sceneObjectMgr.mapInfo as ShisanshuiMapInfo;
+            let mapinfo: RshisanshuiMapInfo = this._game.sceneObjectMgr.mapInfo as RshisanshuiMapInfo;
             this._countDown = mapinfo.GetCountDown();
             if (!mapinfo) return;
         }
 
         //操作倒计时
         deltaUpdate(): void {
-            if (!(this._game.sceneObjectMgr.mapInfo instanceof ShisanshuiMapInfo)) return;
+            if (!(this._game.sceneObjectMgr.mapInfo instanceof RshisanshuiMapInfo)) return;
             if (!this._viewUI) return;
             if (this._curStatus != MAP_STATUS.MAP_STATE_PLAYING) {
                 this._viewUI.img_time.visible = false;
@@ -811,11 +806,11 @@ module gameshisanshui.page {
                             if (idx == mainIdx) {
                                 //显示牌
                                 this._shisanshuiMgr.setCardVisible(true);
-                                if (this._game.uiRoot.general.isOpened(ShisanshuiPageDef.PAGE_SSS_SPECIAL)) {
-                                    this._game.uiRoot.general.close(ShisanshuiPageDef.PAGE_SSS_SPECIAL);
+                                if (this._game.uiRoot.general.isOpened(RshisanshuiPageDef.PAGE_SSS_SPECIAL)) {
+                                    this._game.uiRoot.general.close(RshisanshuiPageDef.PAGE_SSS_SPECIAL);
                                 }
-                                if (this._game.uiRoot.general.isOpened(ShisanshuiPageDef.PAGE_SSS_PLAYING)) {
-                                    this._game.uiRoot.general.close(ShisanshuiPageDef.PAGE_SSS_PLAYING);
+                                if (this._game.uiRoot.general.isOpened(RshisanshuiPageDef.PAGE_SSS_PLAYING)) {
+                                    this._game.uiRoot.general.close(RshisanshuiPageDef.PAGE_SSS_PLAYING);
                                 }
                                 this._isPlayCard = true;
                             }
@@ -883,8 +878,8 @@ module gameshisanshui.page {
                         if (this._battleIndex < i) {
                             this._battleIndex = i;
                             let info = battleInfoMgr.info[i] as gamecomponent.object.BattleInfoPass;
-                            if (!this._game.uiRoot.general.isOpened(ShisanshuiPageDef.PAGE_SSS_QUANLEIDA)) {
-                                this._game.uiRoot.general.open(ShisanshuiPageDef.PAGE_SSS_QUANLEIDA);
+                            if (!this._game.uiRoot.general.isOpened(RshisanshuiPageDef.PAGE_SSS_QUANLEIDA)) {
+                                this._game.uiRoot.general.open(RshisanshuiPageDef.PAGE_SSS_QUANLEIDA);
                             }
                             let unit = this._game.sceneObjectMgr.getUnitByIdx(info.SeatIndex);
                             if (unit) {
@@ -1183,7 +1178,7 @@ module gameshisanshui.page {
                 TongyongPageDef.ins.alertRecharge(StringU.substitute("老板，您的金币少于{0}哦~\n补充点金币去大杀四方吧~", ChipConfig[this._shisanshuiStory.mapLv][0] * 8), () => {
                     this._game.uiRoot.general.open(DatingPageDef.PAGE_CHONGZHI);
                 }, () => {
-                }, true,TongyongPageDef.TIPS_SKIN_STR['cz']);
+                }, false, PathGameTongyong.ui_tongyong_general + "btn_cz.png");
             }
         }
 
@@ -1207,20 +1202,20 @@ module gameshisanshui.page {
         private setCardGameStart() {
             let mainUnit: Unit = this._game.sceneObjectMgr.mainUnit;
             if (!mainUnit) return;
-            let mapinfo: ShisanshuiMapInfo = this._game.sceneObjectMgr.mapInfo as ShisanshuiMapInfo;
+            let mapinfo: RshisanshuiMapInfo = this._game.sceneObjectMgr.mapInfo as RshisanshuiMapInfo;
             if (!mapinfo) return;
             if (mapinfo.GetPlayState()) return;
             if (mainUnit.GetRoomMaster() != 1) {
                 TongyongPageDef.ins.alertRecharge(StringU.substitute("只有房主才可以选择开始游戏哦"), () => {
                 }, () => {
-                }, true, TongyongPageDef.TIPS_SKIN_STR['qd']);
+                }, true, PathGameTongyong.ui_tongyong_general + "btn_qd.png");
                 return;
             }
             this._shisanshuiMgr.totalUnitCount = this.getUnitCount();
             if (this._shisanshuiMgr.totalUnitCount < ShisanshuiMgr.MIN_CARD_SEATS_COUNT) {
                 TongyongPageDef.ins.alertRecharge(StringU.substitute("老板，再等等嘛，需要两个人才可以开始"), () => {
                 }, () => {
-                }, true, TongyongPageDef.TIPS_SKIN_STR['qd']);
+                }, true, PathGameTongyong.ui_tongyong_general + "btn_qd.png");
                 return;
             }
             this._shisanshuiStory.startRoomCardGame(mainUnit.guid, this._mapInfo.GetCardRoomId());
@@ -1233,7 +1228,7 @@ module gameshisanshui.page {
             if (mainUnit.GetRoomMaster() != 1) {
                 TongyongPageDef.ins.alertRecharge(StringU.substitute("只有房主才可以解散房间哦"), () => {
                 }, () => {
-                }, true, TongyongPageDef.TIPS_SKIN_STR['qd']);
+                }, true, PathGameTongyong.ui_tongyong_general + "btn_qd.png");
             } else {
                 if (!this._isGameEnd) {
                     TongyongPageDef.ins.alertRecharge("游戏未开始，解散房间不会扣除金币！\n是否解散房间？", () => {
@@ -1269,9 +1264,9 @@ module gameshisanshui.page {
         }
 
         private clearMapInfoListen(): void {
-            this._game.sceneObjectMgr.off(ShisanshuiMapInfo.EVENT_SSS_STATUS_CHECK, this, this.onUpdateMapState);
-            this._game.sceneObjectMgr.off(ShisanshuiMapInfo.EVENT_SSS_BATTLE_CHECK, this, this.updateBattledInfo);
-            this._game.sceneObjectMgr.off(ShisanshuiMapInfo.EVENT_SSS_COUNT_DOWN, this, this.updateCountDown);//倒计时更新
+            this._game.sceneObjectMgr.off(RshisanshuiMapInfo.EVENT_SSS_STATUS_CHECK, this, this.onUpdateMapState);
+            this._game.sceneObjectMgr.off(RshisanshuiMapInfo.EVENT_SSS_BATTLE_CHECK, this, this.updateBattledInfo);
+            this._game.sceneObjectMgr.off(RshisanshuiMapInfo.EVENT_SSS_COUNT_DOWN, this, this.updateCountDown);//倒计时更新
             this._game.sceneObjectMgr.off(SceneObjectMgr.EVENT_ADD_UNIT, this, this.onUnitAdd);
             this._game.sceneObjectMgr.off(SceneObjectMgr.EVENT_REMOVE_UNIT, this, this.onUnitRemove);
             this._game.sceneObjectMgr.off(SceneObjectMgr.EVENT_UNIT_MONEY_CHANGE, this, this.onUpdateUnit);
@@ -1299,9 +1294,9 @@ module gameshisanshui.page {
                 this._viewUI.btn_chongzhi.off(LEvent.CLICK, this, this.onBtnClickWithTween);
                 this._viewUI.view_type.ani1.off(LEvent.COMPLETE, this, this.onPlayAniOver);
 
-                this._game.sceneObjectMgr.off(ShisanshuiMapInfo.EVENT_SSS_STATUS_CHECK, this, this.onUpdateMapState);
-                this._game.sceneObjectMgr.off(ShisanshuiMapInfo.EVENT_SSS_BATTLE_CHECK, this, this.updateBattledInfo);
-                this._game.sceneObjectMgr.off(ShisanshuiMapInfo.EVENT_SSS_COUNT_DOWN, this, this.updateCountDown);//倒计时更新
+                this._game.sceneObjectMgr.off(RshisanshuiMapInfo.EVENT_SSS_STATUS_CHECK, this, this.onUpdateMapState);
+                this._game.sceneObjectMgr.off(RshisanshuiMapInfo.EVENT_SSS_BATTLE_CHECK, this, this.updateBattledInfo);
+                this._game.sceneObjectMgr.off(RshisanshuiMapInfo.EVENT_SSS_COUNT_DOWN, this, this.updateCountDown);//倒计时更新
                 this._game.sceneObjectMgr.off(SceneObjectMgr.EVENT_ADD_UNIT, this, this.onUnitAdd);
                 this._game.sceneObjectMgr.off(SceneObjectMgr.EVENT_REMOVE_UNIT, this, this.onUnitRemove);
                 this._game.sceneObjectMgr.off(SceneObjectMgr.EVENT_UNIT_MONEY_CHANGE, this, this.onUpdateUnit);
