@@ -92,7 +92,7 @@ module gamershisanshui.page {
             this._viewUI = this.createView('game_ui.shisanshui.ShiSanShuiUI');
             this.addChild(this._viewUI);
             this._pageHandle = PageHandle.Get("ShisanshuiMapPage");//额外界面控制器
-            if (!this._shisanshuiMgr) {  
+            if (!this._shisanshuiMgr) {
                 this._shisanshuiStory = this._game.sceneObjectMgr.story as RshisanshuiStory;
                 this._shisanshuiMgr = this._shisanshuiStory.sssMgr;
             }
@@ -120,6 +120,7 @@ module gamershisanshui.page {
             this._game.sceneObjectMgr.on(SceneObjectMgr.EVENT_MAIN_UNIT_CHANGE, this, this.updateCardRoomDisplayInfo);
             this._game.network.addHanlder(Protocols.SMSG_OPERATION_FAILED, this, this.onOptHandler);
             this._game.sceneObjectMgr.on(SceneObjectMgr.EVENT_OPRATE_SUCESS, this, this.onSucessHandler);
+            this._game.qifuMgr.on(QiFuMgr.QIFU_FLY, this, this.qifuFly);
 
             this._viewUI.btn_menu.on(LEvent.CLICK, this, this.onBtnClickWithTween);
             this._viewUI.btn_back.on(LEvent.CLICK, this, this.onBtnClickWithTween);
@@ -207,7 +208,7 @@ module gamershisanshui.page {
                     this._game.uiRoot.general.open(RshisanshuiPageDef.PAGE_SSS_RULE);
                     break;
                 case this._viewUI.btn_qifu:
-                    this._game.uiRoot.general.open(TongyongPageDef.PAGE_TONGYONG_QIFU);
+                    this._game.uiRoot.general.open(DatingPageDef.PAGE_QIFU);
                     break;
                 case this._viewUI.btn_set:
                     this._game.uiRoot.general.open(TongyongPageDef.PAGE_TONGYONG_SETTING);
@@ -362,22 +363,17 @@ module gamershisanshui.page {
 
         private _nameStrInfo: string[] = ["xs", "px", "gsy", "gg", "cs", "tdg"];
         private _qifuTypeImgUrl: string;
+        private qifuFly(dataSource: any): void {
+            if (!dataSource) return;
+            let dataInfo = dataSource;
+            this._game.qifuMgr.showFlayAni(this._viewUI.view_player0.img_icon, this._viewUI, dataSource, (dataInfo) => {
+                //相对应的玩家精灵做出反应
+                this._qifuTypeImgUrl = StringU.substitute(PathGameTongyong.ui_tongyong_qifu + "f_{0}2.png", this._nameStrInfo[dataInfo.qf_id - 1]);
+                this.onUpdateUnit(dataInfo.qifu_index);
+            });
+        }
         protected onOptHandler(optcode: number, msg: any) {
-            if (msg.type == Operation_Fields.OPRATE_GAME) {
-                switch (msg.reason) {
-                    case Operation_Fields.OPRATE_GAME_QIFU_SUCCESS_RESULT:
-                        let dataInfo = JSON.parse(msg.data);
-                        //打开祈福动画界面
-                        this._game.uiRoot.general.open(TongyongPageDef.PAGE_TONGYONG_QIFU_ANI, (page) => {
-                            page.dataSource = StringU.substitute(PathGameTongyong.ui_tongyong_qifu + "f_{0}1.png", this._nameStrInfo[dataInfo.qf_id - 1]);
-                        });
-                        //相对应的玩家精灵做出反应
-                        this._qifuTypeImgUrl = StringU.substitute(PathGameTongyong.ui_tongyong_qifu + "f_{0}2.png", this._nameStrInfo[dataInfo.qf_id - 1]);
-                        this.onUpdateUnit(dataInfo.qifu_index);
-                        break;
-                }
-            }
-            else if (msg.type == Operation_Fields.OPRATE_TELEPORT) {
+            if (msg.type == Operation_Fields.OPRATE_TELEPORT) {
                 switch (msg.reason) {
                     case Operation_Fields.OPRATE_TELEPORT_MAP_CREATE_ROOM_SUCCESS://在地图中重新创建房间成功
                         this.resetData();
@@ -1306,7 +1302,9 @@ module gamershisanshui.page {
                 this._game.sceneObjectMgr.off(SceneObjectMgr.EVENT_UNIT_QIFU_TIME_CHANGE, this, this.onUpdateUnit);
                 this._game.sceneObjectMgr.off(SceneObjectMgr.EVENT_MAIN_UNIT_CHANGE, this, this.updateCardRoomDisplayInfo);
                 this._game.sceneObjectMgr.off(SceneObjectMgr.EVENT_OPRATE_SUCESS, this, this.onSucessHandler);
+                this._game.qifuMgr.off(QiFuMgr.QIFU_FLY, this, this.qifuFly);
                 this._game.network.removeHanlder(Protocols.SMSG_OPERATION_FAILED, this, this.onOptHandler);
+                
 
                 Laya.timer.clearAll(this);
                 Laya.Tween.clearAll(this);
