@@ -306,7 +306,6 @@ module gamershisanshui.page {
                 if (unit) {
                     let name = getMainPlayerName(unit.GetName());
                     this._viewUI["view_player" + index].txt_name.text = name;
-                    this._viewUI["view_player" + index].img_icon.skin = PathGameTongyong.ui_tongyong_touxiang + "head_" + unit.GetHeadImg() + ".png";
                     let money = EnumToString.getPointBackNum(unit.GetMoney(), 2);
                     this._viewUI["view_player" + index].txt_money.text = money;
                     //头像框
@@ -337,6 +336,7 @@ module gamershisanshui.page {
                         }
                     } else {
                         this._viewUI["view_player" + index].img_qifu.visible = false;
+                        this._viewUI["view_player" + index].img_icon.skin = PathGameTongyong.ui_tongyong_touxiang + "head_" + unit.GetHeadImg() + ".png";
                     }
                 }
             }
@@ -1304,7 +1304,7 @@ module gamershisanshui.page {
                 this._game.sceneObjectMgr.off(SceneObjectMgr.EVENT_OPRATE_SUCESS, this, this.onSucessHandler);
                 this._game.qifuMgr.off(QiFuMgr.QIFU_FLY, this, this.qifuFly);
                 this._game.network.removeHanlder(Protocols.SMSG_OPERATION_FAILED, this, this.onOptHandler);
-                
+
 
                 Laya.timer.clearAll(this);
                 Laya.Tween.clearAll(this);
