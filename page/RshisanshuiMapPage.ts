@@ -80,7 +80,8 @@ module gamershisanshui.page {
                 PathGameTongyong.atlas_game_ui_tongyong + "general.atlas",
                 PathGameTongyong.atlas_game_ui_tongyong + "touxiang.atlas",
                 PathGameTongyong.atlas_game_ui_tongyong + "pai.atlas",
-                PathGameTongyong.atlas_game_ui_tongyong + "qifu.atlas",
+                PathGameTongyong.atlas_game_ui_tongyong + "general/effect/qifu.atlas",
+                PathGameTongyong.atlas_game_ui_tongyong + "fk.atlas",
                 PathGameTongyong.atlas_game_ui_tongyong + "general/effect/fapai_1.atlas",
                 PathGameTongyong.atlas_game_ui_tongyong + "general/effect/xipai.atlas",
                 Path_game_shisanshui.atlas_game_ui + "shisanshui/effect/paixing.atlas",
@@ -250,9 +251,9 @@ module gamershisanshui.page {
                         this._game.network.call_get_roomcard_share(RshisanshuiPageDef.GAME_NAME);
                     }
                     break;
-                case this._viewUI.vw_card.btn_dismiss://房卡解散
-                    this.masterDismissCardGame();
-                    break;
+                // case this._viewUI.vw_card.btn_dismiss://房卡解散
+                //     this.masterDismissCardGame();
+                //     break;
                 case this._viewUI.vw_card.btn_start:////房卡开始
                     this.setCardGameStart();
                     break;
@@ -477,7 +478,7 @@ module gamershisanshui.page {
             if (this.isCardRoomType) {
                 this._viewUI.vw_card.btn_invite.visible = true;
                 this._viewUI.vw_card.btn_invite.x = this._shisanshuiStory.isCardRoomMaster() ? 420 : this._viewUI.vw_card.btn_start.x;
-                this._viewUI.vw_card.btn_dismiss.visible = this._shisanshuiStory.isCardRoomMaster();
+                // this._viewUI.vw_card.btn_dismiss.visible = this._shisanshuiStory.isCardRoomMaster();
                 this._viewUI.vw_card.btn_start.visible = this._shisanshuiStory.isCardRoomMaster();
             }
         }
@@ -487,11 +488,11 @@ module gamershisanshui.page {
             if (this.isCardRoomType && isOn) {
                 this._viewUI.vw_card.btn_invite.on(LEvent.CLICK, this, this.onBtnClickWithTween);
                 this._viewUI.vw_card.btn_start.on(LEvent.CLICK, this, this.onBtnClickWithTween);
-                this._viewUI.vw_card.btn_dismiss.on(LEvent.CLICK, this, this.onBtnClickWithTween);
+                // this._viewUI.vw_card.btn_dismiss.on(LEvent.CLICK, this, this.onBtnClickWithTween);
             } else {
                 this._viewUI.vw_card.btn_invite.off(LEvent.CLICK, this, this.onBtnClickWithTween);
                 this._viewUI.vw_card.btn_start.off(LEvent.CLICK, this, this.onBtnClickWithTween);
-                this._viewUI.vw_card.btn_dismiss.off(LEvent.CLICK, this, this.onBtnClickWithTween);
+                // this._viewUI.vw_card.btn_dismiss.off(LEvent.CLICK, this, this.onBtnClickWithTween);
             }
         }
 
@@ -550,7 +551,7 @@ module gamershisanshui.page {
                     this._viewUI.text_round.visible = true;
                     this._viewUI.text_cardroomid.visible = false;
                     this._viewUI.vw_card.btn_invite.visible = false;
-                    this._viewUI.vw_card.btn_dismiss.visible = false;
+                    // this._viewUI.vw_card.btn_dismiss.visible = false;
                     this._viewUI.vw_card.btn_start.visible = false;
                 }
             } else {

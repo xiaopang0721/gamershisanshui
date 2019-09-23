@@ -31,12 +31,13 @@ module gamershisanshui.page {
 
 
 			this["__needLoadAsset"] = [
-				PathGameTongyong.atlas_game_ui_tongyong + "hud.atlas",
 				Path_game_shisanshui.atlas_game_ui + "shisanshui.atlas",
+				PathGameTongyong.atlas_game_ui_tongyong + "hud.atlas",
 				PathGameTongyong.atlas_game_ui_tongyong + "general.atlas",
 				PathGameTongyong.atlas_game_ui_tongyong + "touxiang.atlas",
 				PathGameTongyong.atlas_game_ui_tongyong + "pai.atlas",
-				PathGameTongyong.atlas_game_ui_tongyong + "qifu.atlas",
+				PathGameTongyong.atlas_game_ui_tongyong + "fk.atlas",
+				PathGameTongyong.atlas_game_ui_tongyong + "general/effect/qifu.atlas",
 				PathGameTongyong.atlas_game_ui_tongyong + "general/effect/fapai_1.atlas",
 				PathGameTongyong.atlas_game_ui_tongyong + "general/effect/xipai.atlas",
 				Path_game_shisanshui.atlas_game_ui + "shisanshui/effect/paixing.atlas",
