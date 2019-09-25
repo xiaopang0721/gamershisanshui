@@ -37,7 +37,6 @@ module gamershisanshui.page {
 				PathGameTongyong.atlas_game_ui_tongyong + "touxiang.atlas",
 				PathGameTongyong.atlas_game_ui_tongyong + "pai.atlas",
 				PathGameTongyong.atlas_game_ui_tongyong + "fk.atlas",
-				PathGameTongyong.atlas_game_ui_tongyong + "general/effect/qifu.atlas",
 				PathGameTongyong.atlas_game_ui_tongyong + "general/effect/fapai_1.atlas",
 				PathGameTongyong.atlas_game_ui_tongyong + "general/effect/xipai.atlas",
 				Path_game_shisanshui.atlas_game_ui + "shisanshui/effect/paixing.atlas",
