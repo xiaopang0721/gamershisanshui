@@ -90,6 +90,7 @@ module gamershisanshui.page {
 					Path_game_shisanshui.music_shisanshui + "tesu_13_nv.mp3",
 				])
 			}
+			this["__roomcard"] = Web_operation_fields.GAME_ROOM_CONFIG_CARD_ROOM;
 		}
 	}
 }
