@@ -33,7 +33,7 @@ module gamershisanshui.data {
 			}
 		}
 
-		public getBattleInfoToString(): string {
+		public getBattleInfoToObj(): string {
 			let str: string = "";
 			for (let i = 0; i < this._battleInfoMgr.info.length; i++) {
 				let battleInfo = this._battleInfoMgr.info[i] as gamecomponent.object.BattleInfoBase;
