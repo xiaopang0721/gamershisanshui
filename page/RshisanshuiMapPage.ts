@@ -313,6 +313,9 @@ module gamershisanshui.page {
                     if (this._viewUI["view_player" + index].img_txk.visible) {
                         this._viewUI["view_player" + index].img_txk.skin = PathGameTongyong.ui_tongyong_touxiang + "tu_v" + unit.GetVipLevel() + ".png";
                     }
+                    //vip
+                    this._viewUI["view_player" + index].img_vip.visible = unit.GetVipLevel() > 0;
+                    this._viewUI["view_player" + index].img_vip.skin = TongyongUtil.getVipUrl(unit.GetVipLevel());
                     //祈福成功 头像上就有动画
                     if (qifu_index && posIdx == qifu_index) {
                         this._viewUI["view_player" + index].qifu_type.visible = true;
