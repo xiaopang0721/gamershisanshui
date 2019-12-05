@@ -34,7 +34,7 @@ module gamershisanshui.page {
 		// 页面打开时执行函数
 		protected onOpen(): void {
 			super.onOpen();
-			(this._viewUI.view_hud as TongyongHudNqpPage).onOpen(this._game, RshisanshuiPageDef.GAME_NAME, true);
+			(this._viewUI.view_hud as TongyongHudNqpPage).onOpen(this._game, RshisanshuiPageDef.GAME_NAME, true, true);
 			for (let index = 0; index < this._viewUI.box_roomcard.numChildren; index++) {
 				this._viewUI.box_roomcard._childs[index].visible = true;
 				Laya.Tween.from(this._viewUI.box_roomcard._childs[index], {
