@@ -72,8 +72,8 @@ module gamershisanshui.page {
 			if (this._viewUI) {
 				this._viewUI.img_room_create.off(LEvent.CLICK, this, this.onBtnClickWithTween);
 				this._viewUI.img_room_join.off(LEvent.CLICK, this, this.onBtnClickWithTween);
+				this._game.stopMusic();
 			}
-			this._game.stopMusic();
 
 			super.close();
 		}

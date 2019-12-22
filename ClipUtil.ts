@@ -216,7 +216,7 @@ module gamershisanshui {
                 for (let i = 0; i < len; i++) {
                     let clip = this._clipArray[i];
                     let indexStr: string = this._txtStr.charAt(i).toString();
-                    let index = (indexStr == ".") ? 10 : parseInt(indexStr);
+                    let index = (indexStr == "-") ? 11 : (indexStr == ".") ? 10 : parseInt(indexStr);
                     if (!clip) {
                         clip = this.createClip(index);
                         this._container.addChild(clip);
